@@ -1,0 +1,20 @@
+$kind: http-example
+request:
+  url: https://thinking-tester-contact-list.herokuapp.com/users/me
+  method: GET
+  headers:
+    Authorization: Bearer {{token}}
+response:
+  statusCode: 200
+  statusText: OK
+  body:
+    type: text
+    content: |-
+      {
+          "_id": "608b2db1add2691791c04c89",
+          "firstName": "Test",
+          "lastName": "User",
+          "email": "test@fake.com",
+          "__v": 1
+      }
+order: 1000

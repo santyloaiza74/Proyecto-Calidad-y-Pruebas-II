@@ -1,0 +1,5 @@
+workspace:
+  id: 6b8d80d9-1790-4175-80db-c96eaba13d57
+cloudResources:
+  collections:
+    ../postman/collections/Contact List Documentation: 27714968-c1926125-b052-47de-9ef4-06248e20cb3e

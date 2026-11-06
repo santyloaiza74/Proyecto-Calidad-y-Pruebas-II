@@ -1,0 +1,21 @@
+$kind: http-request
+url: https://thinking-tester-contact-list.herokuapp.com/users/login
+method: POST
+body:
+  type: json
+  content: |-
+    {
+        "email": "{{Correo}}",
+        "password": "{{Contraseña}}"
+    }
+scripts:
+  - type: afterResponse
+    code: "let data = pm.response.json();\r
+
+      let tokenAuth = data.token;\r
+
+      pm.collectionVariables.set(\"tokenAuth\", tokenAuth);"
+    language: text/javascript
+settings: {}
+examples: ./.resources/Log In User.resources/examples
+order: 5000

@@ -1,0 +1,35 @@
+$kind: http-example
+request:
+  url: https://thinking-tester-contact-list.herokuapp.com/contacts/{{contactId}}
+  method: PATCH
+  headers:
+    Authorization: Bearer {{token}}
+  body:
+    type: json
+    content: |-
+      {
+          "firstName": "Anna"
+      }
+response:
+  statusCode: 200
+  statusText: OK
+  body:
+    type: text
+    content: |-
+      {
+          "_id": "6085a221fcfc72405667c3d4",
+          "firstName": "Anna",
+          "lastName": "Miller",
+          "birthdate": "1992-02-02",
+          "email": "amiller@fake.com",
+          "phone": "8005554242",
+          "street1": "13 School St.",
+          "street2": "Apt. 5",
+          "city": "Washington",
+          "stateProvince": "QC",
+          "postalCode": "A1B2D4",
+          "country": "Canada"
+          "owner": "6085a21efcfc72405667c3d4",
+          "__v": 0
+      }
+order: 1000

@@ -1,0 +1,16 @@
+$kind: http-request
+name: Update Contact
+description: The PATCH Update Contact operation is not available through the UI.
+url: https://thinking-tester-contact-list.herokuapp.com/contacts/{{contactId}}
+method: PATCH
+headers:
+  Authorization: Bearer {{token}}
+body:
+  type: json
+  content: |-
+    {
+        "firstName": "Anna"
+    }
+settings: {}
+examples: ./.resources/Update Contact-1.resources/examples
+order: 5000

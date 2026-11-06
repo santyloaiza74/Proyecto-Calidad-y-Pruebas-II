@@ -1,0 +1,29 @@
+$kind: http-example
+request:
+  url: https://thinking-tester-contact-list.herokuapp.com/users/me
+  method: PATCH
+  headers:
+    Authorization: Bearer {{token}}
+  body:
+    type: json
+    content: |-
+      {
+          "firstName": "Updated",
+          "lastName": "Username",
+          "email": "test2@fake.com",
+          "password": "myNewPassword"
+      }
+response:
+  statusCode: 200
+  statusText: OK
+  body:
+    type: text
+    content: |-
+      {
+          "_id": "608b2db1add2691791c04c89",
+          "firstName": "Updated",
+          "lastName": "Username",
+          "email": "test2@fake.com",
+          "__v": 1
+      }
+order: 1000

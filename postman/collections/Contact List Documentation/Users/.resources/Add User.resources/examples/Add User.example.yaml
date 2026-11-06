@@ -1,0 +1,32 @@
+$kind: http-example
+request:
+  url: https://thinking-tester-contact-list.herokuapp.com/users
+  method: POST
+  headers:
+    Authorization: Bearer {{token}}
+  body:
+    type: json
+    content: |-
+      {
+          "firstName": "Test",
+          "lastName": "User",
+          "email": "test@fake.com",
+          "password": "myPassword"
+      }
+response:
+  statusCode: 200
+  statusText: OK
+  body:
+    type: text
+    content: |-
+      {
+          "user": {
+              "_id": "608b2db1add2691791c04c89",
+              "firstName": "Test",
+              "lastName": "User",
+              "email": "test@fake.com",
+              "__v": 1
+          },
+          "token": "{{json_web_token_0gl0}}"
+      }
+order: 1000

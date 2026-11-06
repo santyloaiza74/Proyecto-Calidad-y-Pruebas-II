@@ -1,0 +1,9 @@
+$kind: http-request
+description: The DELETE User operation is not available through the UI.
+url: https://thinking-tester-contact-list.herokuapp.com/users/me
+method: DELETE
+headers:
+  Authorization: Bearer {{token}}
+settings: {}
+examples: ./.resources/Delete User.resources/examples
+order: 6000

@@ -1,0 +1,18 @@
+$kind: http-request
+description: The PATCH Update User operation is not available through the UI.
+url: https://thinking-tester-contact-list.herokuapp.com/users/me
+method: PATCH
+headers:
+  Authorization: Bearer {{token}}
+body:
+  type: json
+  content: |-
+    {
+        "firstName": "Updated",
+        "lastName": "Username",
+        "email": "test2@fake.com",
+        "password": "myNewPassword"
+    }
+settings: {}
+examples: ./.resources/Update User.resources/examples
+order: 3000

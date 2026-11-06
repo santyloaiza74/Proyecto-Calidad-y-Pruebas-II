@@ -1,0 +1,26 @@
+$kind: collection
+description: |-
+  This is the API for the Contact List App: 
+  https://thinking-tester-contact-list.herokuapp.com/
+variables:
+  - key: json_web_token_0gl0
+    secret: true
+    disabled: false
+  - key: json_web_token_070l
+    secret: true
+    disabled: false
+  - key: Nombre
+    value: ""
+    disabled: false
+  - key: Apellido
+    value: ""
+    disabled: false
+  - key: Correo
+    value: ""
+    disabled: false
+  - key: Contraseña
+    value: ""
+    disabled: false
+  - key: tokenAuth
+    value: ""
+    disabled: false

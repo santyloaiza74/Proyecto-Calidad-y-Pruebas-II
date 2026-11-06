@@ -1,0 +1,27 @@
+$kind: http-request
+url: https://thinking-tester-contact-list.herokuapp.com/users
+method: POST
+headers:
+  Authorization: Bearer {{token}}
+body:
+  type: json
+  content: |-
+    {
+        "firstName": "{{Nombre}}",
+        "lastName": "{{Apellido}}",
+        "email": "{{Correo}}",
+        "password": "{{Contraseña}}"
+    }
+scripts:
+  - type: afterResponse
+    code: "pm.collectionVariables.set(\"Nombre\", \"Proyecto\")\r
+
+      pm.collectionVariables.set(\"Apellido\", \"CyP\")\r
+
+      pm.collectionVariables.set(\"Correo\", \"Proyecto@CyP.com\")\r
+
+      pm.collectionVariables.set(\"Contraseña\", \"ProyectoCyP\")"
+    language: text/javascript
+settings: {}
+examples: ./.resources/Add User.resources/examples
+order: 1000

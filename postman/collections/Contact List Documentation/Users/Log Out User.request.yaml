@@ -1,0 +1,8 @@
+$kind: http-request
+url: https://thinking-tester-contact-list.herokuapp.com/users/logout
+method: POST
+headers:
+  Authorization: Bearer {{token}}
+settings: {}
+examples: ./.resources/Log Out User.resources/examples
+order: 4000

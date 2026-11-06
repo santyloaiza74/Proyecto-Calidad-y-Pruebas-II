@@ -1,0 +1,28 @@
+$kind: http-example
+request:
+  url: https://thinking-tester-contact-list.herokuapp.com/users/login
+  method: POST
+  body:
+    type: json
+    content: |-
+      {
+          "email": "test2@fake.com",
+          "password": "myNewPassword"
+      }
+response:
+  statusCode: 200
+  statusText: OK
+  body:
+    type: text
+    content: |-
+      {
+          "user": {
+              "_id": "608b2db1add2691791c04c89",
+              "firstName": "Updated",
+              "lastName": "Username",
+              "email": "test2@fake.com",
+              "__v": 212
+          },
+          "token": "{{json_web_token_070l}}"
+      }
+order: 1000
