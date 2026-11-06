@@ -3,7 +3,7 @@ description: The GET User Profile operation is not available through the UI.
 url: https://thinking-tester-contact-list.herokuapp.com/users/me
 method: GET
 headers:
-  Authorization: Bearer {{token}}
+  Authorization: Bearer {{tokenAuth}}
 settings: {}
 examples: ./.resources/Get User Profile.resources/examples
 order: 2000

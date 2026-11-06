@@ -2,25 +2,25 @@ $kind: http-request
 url: https://thinking-tester-contact-list.herokuapp.com/users
 method: POST
 headers:
-  Authorization: Bearer {{token}}
+  - key: Authorization
+    value: Bearer {{token}}
+    disabled: true
 body:
   type: json
   content: |-
     {
-        "firstName": "{{Nombre}}",
-        "lastName": "{{Apellido}}",
-        "email": "{{Correo}}",
-        "password": "{{Contraseña}}"
+        "firstName": "{{$randomUserName}}",
+        "lastName": "{{$randomLastName}}",
+        "email": "{{$randomEmail}}",
+        "password": "{{$randomPassword}}"
     }
 scripts:
   - type: afterResponse
-    code: "pm.collectionVariables.set(\"Nombre\", \"Proyecto\")\r
+    code: "pm.test(\" Registro de usuario público\", function () {\r
 
-      pm.collectionVariables.set(\"Apellido\", \"CyP\")\r
+      \    pm.response.to.have.status(201);\r
 
-      pm.collectionVariables.set(\"Correo\", \"Proyecto@CyP.com\")\r
-
-      pm.collectionVariables.set(\"Contraseña\", \"ProyectoCyP\")"
+      });"
     language: text/javascript
 settings: {}
 examples: ./.resources/Add User.resources/examples
