@@ -1,0 +1,16 @@
+$kind: http-request
+url: https://thinking-tester-contact-list.herokuapp.com/contacts/id-raro-123
+method: GET
+headers:
+  Authorization: Bearer {{token}}
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"CP-012: Rechaza consulta con ID inválido (400 Bad Request)\",
+      function () {\r
+
+      \    pm.response.to.have.status(400);\r
+
+      });"
+    language: text/javascript
+examples: .resources/Get Contact CP-012.resources/examples
+order: 4000

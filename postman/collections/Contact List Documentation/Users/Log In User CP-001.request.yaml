@@ -1,0 +1,38 @@
+$kind: http-request
+url: https://thinking-tester-contact-list.herokuapp.com/users/login
+method: POST
+body:
+  type: json
+  content: |-
+    {
+        "email": "{{Correo}}",
+        "password": "{{Contraseña}}"
+    }
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"CP-001 Autenticación exitosa (Login)\", function () {\r
+
+      \    pm.response.to.have.status(200);\r
+
+      });\r
+
+      \r
+
+      \r
+
+      let data = pm.response.json();\r
+
+      let tokenAuth = data.token;\r
+
+      pm.collectionVariables.set(\"tokenAuth\", tokenAuth);\r
+
+      \r
+
+      pm.test(\"CP-01 Verificar captura de token\", function () {\r
+
+      \    pm.expect(pm.collectionVariables.get(\"tokenAuth\")).to.not.be.undefined;\r
+
+      });\r\n"
+    language: text/javascript
+examples: .resources/Log In User CP-001.resources/examples
+order: 9000

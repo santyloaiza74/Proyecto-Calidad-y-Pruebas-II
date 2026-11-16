@@ -1,4 +1,5 @@
 $kind: http-request
+name: Update Contact CP-013
 url: https://thinking-tester-contact-list.herokuapp.com/contacts/{{contactId}}
 method: PUT
 headers:
@@ -19,6 +20,14 @@ body:
         "postalCode": "A1A1A1",
         "country": "Canada"
     }
-settings: {}
-examples: ./.resources/Update Contact.resources/examples
-order: 4000
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"CP-013 Actualización total de contacto (PUT) con carga útil
+      incompleta\",function(){\r
+
+      \    pm.response.to.have.status(400)\r
+
+      })"
+    language: text/javascript
+examples: .resources/Update Contact CP-013-1.resources/examples
+order: 5455

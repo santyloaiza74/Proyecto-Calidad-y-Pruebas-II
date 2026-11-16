@@ -1,0 +1,29 @@
+$kind: http-request
+description: The PATCH Update User operation is not available through the UI.
+url: https://thinking-tester-contact-list.herokuapp.com/users/me
+method: PATCH
+headers:
+  - key: Authorization
+    value: Bearer {{tokenAuth}}
+    disabled: true
+body:
+  type: json
+  content: |-
+    {
+        "firstName": "{{$randomFirstName}}",
+        "lastName": "{{$randomLastName}}",
+        "email": "{{Correo}}",
+        "password": "{{Contraseña}}"
+    }
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"CP-002 Modificación de perfil de usuario sin cabecera de autorización\", function () {\r
+
+      \    pm.response.to.have.status(401);\r
+
+      \    pm.expect(pm.response.text()).to.include(\"Please authenticate.\");\r
+
+      });"
+    language: text/javascript
+examples: .resources/Update User CP-002.resources/examples
+order: 5000

@@ -1,0 +1,39 @@
+$kind: http-request
+description: The PATCH Update User operation is not available through the UI.
+url: https://thinking-tester-contact-list.herokuapp.com/users/me
+method: PATCH
+headers:
+  Authorization: Bearer {{tokenAuth}}
+body:
+  type: json
+  content: |-
+    {
+        "firstName": "{{$randomFirstName}}",
+        "lastName": "{{$randomLastName}}"
+    }
+scripts:
+  - type: afterResponse
+    code: "let data = pm.response.json();\r
+
+      let name = data.firstName\r
+
+      let lastname = data.lastName\r
+
+      pm.test(\"CP-007 Actualización parcial del perfil de usuario (PATCH)\", function () {\r
+
+      \    pm.response.to.have.status(200);\r
+
+      \    pm.expect(name).to.not.equal(pm.collectionVariables.get(\"Nombre\"));\r
+
+      \    pm.expect(lastname).to.not.equal(pm.collectionVariables.get(\"Apellido\"));\r
+
+      });\r
+
+      \r
+
+      pm.collectionVariables.set(\"Nombre\", name);\r
+
+      pm.collectionVariables.set(\"Apellido\", lastname);\r\n"
+    language: text/javascript
+examples: .resources/Update User CP-OO7.resources/examples
+order: 6000

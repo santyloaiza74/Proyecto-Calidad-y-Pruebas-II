@@ -11,6 +11,5 @@ body:
     {
         "firstName": "Anna"
     }
-settings: {}
 examples: ./.resources/Update Contact-1.resources/examples
-order: 5000
+order: 7000

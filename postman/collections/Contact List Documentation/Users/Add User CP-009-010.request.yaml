@@ -1,0 +1,37 @@
+$kind: http-request
+name: Add User CP-009/010
+url: https://thinking-tester-contact-list.herokuapp.com/users
+method: POST
+headers:
+  - key: Authorization
+    value: Bearer {{token}}
+    disabled: true
+body:
+  type: json
+  content: |-
+    {
+        "firstName": "{{$randomUserName}}",
+        "lastName": "{{$randomLastName}}",
+        "email": "{{$randomEmail}}",
+        "password": "12"
+    }
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"CP-09 Rechaza registro sin contraseña (400 Bad Request)\", function(){\r
+
+      \    pm.response.to.have.status(400);\r
+
+      })\r
+
+      \r
+
+      pm.test(\"CP-10 Registro de usuario con contraseña inferior a la longitud minuma\", function(){\r
+
+      \    pm.response.to.have.status(400);\r
+
+      })\r
+
+      \r\n"
+    language: text/javascript
+examples: .resources/Add User CP-009-010.resources/examples
+order: 3000

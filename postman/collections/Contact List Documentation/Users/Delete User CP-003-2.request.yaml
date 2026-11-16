@@ -1,0 +1,21 @@
+$kind: http-request
+name: Delete User CP-003
+description: The DELETE User operation is not available through the UI.
+url: https://thinking-tester-contact-list.herokuapp.com/users/me
+method: DELETE
+headers:
+  Authorization: Be4rer{{tokenAuth}}
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"CP-003 Eliminación de cuenta con esquema de autorización
+      malformado\", function () {\r
+
+      \    pm.expect(pm.response.json().error).to.eql(\"Please
+      authenticate.\");\r
+
+      \    pm.expect(pm.response.code).to.eql(401);\r
+
+      });"
+    language: text/javascript
+examples: .resources/Delete User CP-003-2.resources/examples
+order: 11549

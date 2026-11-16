@@ -3,3 +3,5 @@ workspace:
 cloudResources:
   collections:
     ../postman/collections/Contact List Documentation: 27714968-c1926125-b052-47de-9ef4-06248e20cb3e
+  globals:
+    ../postman/globals/workspace.globals.yaml: 16e22c96-c194-413e-8cb3-bdf865000162

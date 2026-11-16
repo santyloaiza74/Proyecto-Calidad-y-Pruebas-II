@@ -3,26 +3,23 @@ description: The PATCH Update User operation is not available through the UI.
 url: https://thinking-tester-contact-list.herokuapp.com/users/me
 method: PATCH
 headers:
-  - key: Authorization
-    value: Bearer {{tokenAuth}}
-    disabled: true
+  Authorization: Bearer {{token}}
 body:
   type: json
   content: |-
     {
         "firstName": "{{$randomFirstName}}",
         "lastName": "{{$randomLastName}}",
-        "email": "{{Correo}}",
-        "password": "{{Contraseña}}"
+        "email": "pearline_legros50@hotmail.com"
     }
 scripts:
   - type: afterResponse
-    code: "pm.test(\"Modificación de perfil de usuario sin cabecera de autorización\", function () {\r
+    code: "pm.test(\"CP-015 Actualización de perfil con duplicidad de correo
+      electrónico\", function(){\r
 
-      \    pm.response.to.have.status(401);\r
+      \    pm.response.to.have.status(400);\r
 
-      });"
+      })"
     language: text/javascript
-settings: {}
-examples: ./.resources/Update User.resources/examples
-order: 3000
+examples: ./.resources/Update User CP-015.resources/examples
+order: 7000

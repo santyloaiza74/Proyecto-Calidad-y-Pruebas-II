@@ -12,15 +12,52 @@ variables:
   - key: Nombre
     value: ""
     disabled: false
+    secret: false
   - key: Apellido
     value: ""
     disabled: false
+    secret: false
   - key: Correo
     value: ""
     disabled: false
+    secret: false
   - key: Contraseña
     value: ""
     disabled: false
+    secret: false
   - key: tokenAuth
+    secret: true
+    disabled: false
+  - key: contactFirstName
+    value: ""
+    disabled: false
+  - key: contactLastName
+    value: ""
+    disabled: false
+  - key: contactBirthdate
+    value: ""
+    disabled: false
+  - key: contactEmail
+    value: ""
+    disabled: false
+  - key: contactPhone
+    value: ""
+    disabled: false
+  - key: contactStreet1
+    value: ""
+    disabled: false
+  - key: contactStreet2
+    value: ""
+    disabled: false
+  - key: contactCity
+    value: ""
+    disabled: false
+  - key: contactStateProvince
+    value: ""
+    disabled: false
+  - key: contactPostalCode
+    value: ""
+    disabled: false
+  - key: contactCountry
     value: ""
     disabled: false
