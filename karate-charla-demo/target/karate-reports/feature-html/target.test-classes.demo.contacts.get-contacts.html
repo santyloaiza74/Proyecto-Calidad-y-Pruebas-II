@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="../res/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../res/karate-report.css"/>
+    <link rel="icon" href="../res/favicon.ico"/>
+    <script src="../res/alpine.min.js" defer></script>
+    <title>Karate Feature</title>
+    <style>
+        .sidebar {
+            position: fixed;
+            top: 56px;
+            bottom: 0;
+            left: 0;
+            width: 220px;
+            overflow-y: auto;
+            border-right: 1px solid var(--bs-border-color);
+        }
+        .main-content {
+            margin-left: 220px;
+            padding: 1rem;
+        }
+        .step-row {
+            border-bottom: 1px solid var(--bs-border-color);
+            padding: 0.25rem 0;
+            font-family: var(--bs-font-monospace);
+            font-size: 0.875rem;
+        }
+        .step-row:hover {
+            background-color: var(--bs-tertiary-bg);
+        }
+        .step-row.clickable {
+            cursor: pointer;
+        }
+        .step-logs {
+            background-color: var(--bs-dark-bg-subtle);
+            border-radius: 0.25rem;
+            margin: 0.25rem 0 0.25rem 50px;
+            padding: 0.5rem;
+            font-size: 0.8rem;
+        }
+        .nav-scenario {
+            font-size: 0.8rem;
+            padding: 0.25rem 0.5rem;
+            border-left: 3px solid transparent;
+        }
+        .nav-scenario:hover {
+            background-color: var(--bs-tertiary-bg);
+        }
+        .nav-scenario.active {
+            border-left-color: var(--bs-primary);
+            background-color: var(--bs-tertiary-bg);
+        }
+        .log-indicator {
+            font-size: 0.6rem;
+            vertical-align: middle;
+        }
+        .nested-call {
+            border-left: 3px solid var(--bs-info);
+            margin: 0.5rem 0 0.5rem 50px;
+            padding-left: 0.5rem;
+            background-color: var(--bs-tertiary-bg);
+        }
+        .nested-scenario {
+            border-radius: 0.25rem;
+            margin: 0.25rem 0;
+            padding: 0.5rem;
+            font-size: 0.85rem;
+        }
+        .nested-scenario .nested-step {
+            font-family: var(--bs-font-monospace);
+            font-size: 0.8rem;
+            padding: 0.125rem 0;
+        }
+        @media (max-width: 768px) {
+            .sidebar { display: none; }
+            .main-content { margin-left: 0; }
+        }
+    </style>
+</head>
+<body x-data="KarateReport.featureData()">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="../karate-summary.html">
+                <img src="../res/karate-logo.svg" alt="Karate" height="32" class="d-inline-block align-middle me-2"/>
+                <span x-text="featureSimpleName">Feature</span>
+            </a>
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="../karate-summary.html">Summary</a>
+                </li>
+            </ul>
+            <button class="btn btn-sm btn-outline-light ms-2" @click="toggleTheme()" title="Toggle theme">
+                <span x-show="theme === 'light'">&#9790;</span>
+                <span x-show="theme === 'dark'">&#9788;</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Left Sidebar -->
+    <nav class="sidebar bg-body-tertiary pt-3">
+        <div class="px-3 mb-2">
+            <small class="text-muted">Scenarios</small>
+        </div>
+        <template x-for="scenario in data.scenarios" :key="scenario.refId">
+            <a class="nav-scenario d-block text-decoration-none"
+               :class="scenario.skipped ? 'text-warning' : (scenario.passed ? 'text-success' : 'text-danger')"
+               :href="'#' + scenario.refId"
+               :title="scenario.name">
+                <span class="fw-bold" x-text="scenario.refId"></span>
+                <span x-text="scenario.name ? ' ' + truncate(scenario.name, 20) : ''"></span>
+            </a>
+        </template>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content" style="margin-top: 56px;">
+        <nav aria-label="breadcrumb" class="mb-3">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="../karate-summary.html">Summary</a></li>
+                <li class="breadcrumb-item active" aria-current="page" x-text="data.name || data.path">Feature</li>
+            </ol>
+        </nav>
+
+        <h4 x-text="data.name || 'Feature'">Feature Name</h4>
+        <p class="text-muted small" x-text="data.path">path/to/feature</p>
+
+        <!-- Scenarios -->
+        <template x-for="scenario in data.scenarios" :key="scenario.refId">
+            <div class="card mb-3" :id="scenario.refId">
+                <div class="card-header d-flex justify-content-between align-items-center py-2"
+                     :class="scenario.skipped ? 'bg-warning-subtle' : (scenario.passed ? 'bg-success-subtle' : 'bg-danger-subtle')">
+                    <span>
+                        <span class="fw-bold" x-text="scenario.refId"></span>
+                        <span x-text="scenario.name"></span>
+                        <template x-if="scenario.isOutlineExample">
+                            <span class="badge bg-info ms-1">Outline</span>
+                        </template>
+                        <template x-for="tag in scenario.tags || []" :key="tag">
+                            <span class="badge bg-secondary ms-1" x-text="tag"></span>
+                        </template>
+                    </span>
+                    <span>
+                        <small class="text-muted me-2" x-text="scenario.durationMillis + ' ms'"></small>
+                        <span x-show="scenario.skipped" class="badge bg-warning">SKIP</span>
+                        <span x-show="scenario.passed && !scenario.skipped" class="badge bg-success">PASS</span>
+                        <span x-show="!scenario.passed" class="badge bg-danger">FAIL</span>
+                    </span>
+                </div>
+                <div class="card-body p-0" x-html="renderSteps(scenario.steps)">
+                </div>
+                <!-- Scenario Error -->
+                <template x-if="scenario.error && !scenario.steps?.some(s => s.error)">
+                    <div class="card-footer bg-danger-subtle">
+                        <pre class="mb-0 small text-danger" x-text="scenario.error"></pre>
+                    </div>
+                </template>
+            </div>
+        </template>
+    </main>
+
+    <script src="../res/bootstrap.bundle.min.js"></script>
+    <script src="../res/karate-report.js"></script>
+    <script id="karate-data" type="application/json">{
+  "path": "target/test-classes/demo/contacts/get-contacts.feature",
+  "name": "Pruebas de Contactos (CP-006)",
+  "relativePath": "target/test-classes/demo/contacts/get-contacts.feature",
+  "passed": true,
+  "durationMillis": 617,
+  "scenarios": [
+    {
+      "name": "CP-006 Reemplazo total de la entidad contacto (PUT)",
+      "line": 6,
+      "passed": true,
+      "durationMillis": 616,
+      "startTime": 1795305139520,
+      "endTime": 1795305140136,
+      "refId": "[1:6]",
+      "sectionIndex": 1,
+      "exampleIndex": -1,
+      "isOutlineExample": false,
+      "thread": "ForkJoinPool.commonPool-worker-1",
+      "tags": [
+        "@CP-006"
+      ],
+      "skipped": false,
+      "steps": [
+        {
+          "prefix": "*",
+          "keyword": "url",
+          "text": "baseUrl",
+          "line": 4,
+          "status": "passed",
+          "durationMillis": 0,
+          "hasLogs": false,
+          "hasEmbeds": false,
+          "hasCallResults": false
+        },
+        {
+          "prefix": "Given",
+          "keyword": "path",
+          "text": "'users'",
+          "line": 7,
+          "status": "passed",
+          "durationMillis": 0,
+          "hasLogs": false,
+          "hasEmbeds": false,
+          "hasCallResults": false
+        },
+        {
+          "prefix": "And",
+          "keyword": "request",
+          "text": null,
+          "line": 8,
+          "status": "passed",
+          "durationMillis": 0,
+          "hasLogs": false,
+          "hasEmbeds": false,
+          "hasCallResults": false
+        },
+        {
+          "prefix": "When",
+          "keyword": "method",
+          "text": "post",
+          "line": 17,
+          "status": "passed",
+          "durationMillis": 314,
+          "hasLogs": true,
+          "logs": "request:\n1 > POST https://thinking-tester-contact-list.herokuapp.com/users\n1 > Content-Type: application/json; charset=UTF-8\n1 > Host: thinking-tester-contact-list.herokuapp.com\n1 > Content-Length: 93\n1 > Connection: keep-alive\n1 > User-Agent: Apache-HttpClient/5.6 (Java/21.0.12.1)\n{\"firstName\":\"Boca\",\"lastName\":\"Juniors\",\"email\":\"boca.juniors@arg.com\",\"password\":\"boca123\"}\n\nresponse time in milliseconds: 118\n1 < 201 POST https://thinking-tester-contact-list.herokuapp.com/users\n1 < Etag: W/\"11a-nJYQiTPengDjot2VNBaRGP4iT8A\"\n1 < Nel: {\"report_to\":\"heroku-nel\",\"response_headers\":[\"Via\"],\"max_age\":3600,\"success_fraction\":0.01,\"failure_fraction\":0.1}\n1 < Server: Heroku\n1 < Report-To: {\"group\":\"heroku-nel\",\"endpoints\":[{\"url\":\"https://nel.heroku.com/reports?s=oUT5gtsKI94lJHBk0emqrMwquWQdra98IeYtcXpQhF4%3D\\u0026sid=af571f24-03ee-46d1-9f90-ab9030c2c74c\\u0026ts=1795305139\"}],\"max_age\":3600}\n1 < Set-Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2YjAyMmViMzliZDFiYjAwMTUzMjVjYmMiLCJpYXQiOjE3OTUzMDUxMzl9.ToZ6u3AUYOdHc7j_T4DVBtkDOi8e7vSokEowIC51Buw; Max-Age=684; Path=/; Expires=Sun, 22 Nov 2026 00:03:43 GMT\n1 < Reporting-Endpoints: heroku-nel=\"https://nel.heroku.com/reports?s=oUT5gtsKI94lJHBk0emqrMwquWQdra98IeYtcXpQhF4%3D&sid=af571f24-03ee-46d1-9f90-ab9030c2c74c&ts=1795305139\"\n1 < Content-Length: 282\n1 < Date: Sat, 21 Nov 2026 23:52:19 GMT\n1 < Content-Type: application/json; charset=utf-8\n1 < Via: 1.1 heroku-router\n1 < X-Powered-By: Express\n{\"user\":{\"_id\":\"6b022eb39bd1bb0015325cbc\",\"firstName\":\"Boca\",\"lastName\":\"Juniors\",\"email\":\"boca.juniors@arg.com\",\"__v\":1},\"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2YjAyMmViMzliZDFiYjAwMTUzMjVjYmMiLCJpYXQiOjE3OTUzMDUxMzl9.ToZ6u3AUYOdHc7j_T4DVBtkDOi8e7vSokEowIC51Buw\"}\n\nPOST https://thinking-tester-contact-list.herokuapp.com/users\n201 (118 ms)\n",
+          "hasEmbeds": false,
+          "hasCallResults": false
+        },
+        {
+          "prefix": "Then",
+          "keyword": "status",
+          "text": "201",
+          "line": 18,
+          "status": "passed",
+          "durationMillis": 0,
+          "hasLogs": false,
+          "hasEmbeds": false,
+          "hasCallResults": false
+        },
+        {
+          "prefix": "*",
+          "keyword": "def",
+          "text": "tokenAuth = response.token",
+          "line": 19,
+          "status": "passed",
+          "durationMillis": 0,
+          "hasLogs": false,
+          "hasEmbeds": false,
+          "hasCallResults": false
+        },
+        {
+          "prefix": "Given",
+          "keyword": "path",
+          "text": "'contacts'",
+          "line": 21,
+          "status": "passed",
+          "durationMillis": 0,
+          "hasLogs": false,
+          "hasEmbeds": false,
+          "hasCallResults": false
+        },
+        {
+          "prefix": "And",
+          "keyword": "header",
+          "text": "Authorization = 'Bearer ' + tokenAuth",
+          "line": 22,
+          "status": "passed",
+          "durationMillis": 0,
+          "hasLogs": false,
+          "hasEmbeds": false,
+          "hasCallResults": false
+        },
+        {
+          "prefix": "And",
+          "keyword": "request",
+          "text": null,
+          "line": 23,
+          "status": "passed",
+          "durationMillis": 0,
+          "hasLogs": false,
+          "hasEmbeds": false,
+          "hasCallResults": false
+        },
+        {
+          "prefix": "When",
+          "keyword": "method",
+          "text": "post",
+          "line": 39,
+          "status": "passed",
+          "durationMillis": 105,
+          "hasLogs": true,
+          "logs": "request:\n2 > POST https://thinking-tester-contact-list.herokuapp.com/contacts\n2 > Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2YjAyMmViMzliZDFiYjAwMTUzMjVjYmMiLCJpYXQiOjE3OTUzMDUxMzl9.ToZ6u3AUYOdHc7j_T4DVBtkDOi8e7vSokEowIC51Buw\n2 > Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2YjAyMmViMzliZDFiYjAwMTUzMjVjYmMiLCJpYXQiOjE3OTUzMDUxMzl9.ToZ6u3AUYOdHc7j_T4DVBtkDOi8e7vSokEowIC51Buw\n2 > Content-Type: application/json\n2 > Host: thinking-tester-contact-list.herokuapp.com\n2 > Content-Length: 229\n2 > Connection: keep-alive\n2 > User-Agent: Apache-HttpClient/5.6 (Java/21.0.12.1)\n{\"firstName\":\"John\",\"lastName\":\"Doe\",\"birthdate\":\"1990-01-01\",\"email\":\"jdoe@fake.com\",\"phone\":\"8005555555\",\"street1\":\"1 Main St.\",\"street2\":\"Apartment A\",\"city\":\"Anytown\",\"stateProvince\":\"KS\",\"postalCode\":\"12345\",\"country\":\"USA\"}\n\nresponse time in milliseconds: 105\n2 < 201 POST https://thinking-tester-contact-list.herokuapp.com/contacts\n2 < Etag: W/\"131-zGwMAPNNPPvUXlto0IkAAteRw30\"\n2 < Nel: {\"report_to\":\"heroku-nel\",\"response_headers\":[\"Via\"],\"max_age\":3600,\"success_fraction\":0.01,\"failure_fraction\":0.1}\n2 < Server: Heroku\n2 < Report-To: {\"group\":\"heroku-nel\",\"endpoints\":[{\"url\":\"https://nel.heroku.com/reports?s=oUT5gtsKI94lJHBk0emqrMwquWQdra98IeYtcXpQhF4%3D\\u0026sid=af571f24-03ee-46d1-9f90-ab9030c2c74c\\u0026ts=1795305139\"}],\"max_age\":3600}\n2 < Reporting-Endpoints: heroku-nel=\"https://nel.heroku.com/reports?s=oUT5gtsKI94lJHBk0emqrMwquWQdra98IeYtcXpQhF4%3D&sid=af571f24-03ee-46d1-9f90-ab9030c2c74c&ts=1795305139\"\n2 < Content-Length: 305\n2 < Date: Sat, 21 Nov 2026 23:52:19 GMT\n2 < Content-Type: application/json; charset=utf-8\n2 < Via: 1.1 heroku-router\n2 < X-Powered-By: Express\n{\"_id\":\"6b022eb39bd1bb0015325cbe\",\"firstName\":\"John\",\"lastName\":\"Doe\",\"birthdate\":\"1990-01-01\",\"email\":\"jdoe@fake.com\",\"phone\":\"8005555555\",\"street1\":\"1 Main St.\",\"street2\":\"Apartment A\",\"city\":\"Anytown\",\"stateProvince\":\"KS\",\"postalCode\":\"12345\",\"country\":\"USA\",\"owner\":\"6b022eb39bd1bb0015325cbc\",\"__v\":0}\n\nPOST https://thinking-tester-contact-list.herokuapp.com/contacts\n201 (105 ms)\n",
+          "hasEmbeds": false,
+          "hasCallResults": false
+        },
+        {
+          "prefix": "Then",
+          "keyword": "status",
+          "text": "201",
+          "line": 40,
+          "status": "passed",
+          "durationMillis": 0,
+          "hasLogs": false,
+          "hasEmbeds": false,
+          "hasCallResults": false
+        },
+        {
+          "prefix": "*",
+          "keyword": "def",
+          "text": "contactId = response._id",
+          "line": 41,
+          "status": "passed",
+          "durationMillis": 0,
+          "hasLogs": false,
+          "hasEmbeds": false,
+          "hasCallResults": false
+        },
+        {
+          "prefix": "Given",
+          "keyword": "path",
+          "text": "'contacts', contactId",
+          "line": 43,
+          "status": "passed",
+          "durationMillis": 0,
+          "hasLogs": false,
+          "hasEmbeds": false,
+          "hasCallResults": false
+        },
+        {
+          "prefix": "And",
+          "keyword": "header",
+          "text": "Authorization = 'Bearer ' + tokenAuth",
+          "line": 44,
+          "status": "passed",
+          "durationMillis": 0,
+          "hasLogs": false,
+          "hasEmbeds": false,
+          "hasCallResults": false
+        },
+        {
+          "prefix": "And",
+          "keyword": "request",
+          "text": null,
+          "line": 45,
+          "status": "passed",
+          "durationMillis": 0,
+          "hasLogs": false,
+          "hasEmbeds": false,
+          "hasCallResults": false
+        },
+        {
+          "prefix": "When",
+          "keyword": "method",
+          "text": "put",
+          "line": 61,
+          "status": "passed",
+          "durationMillis": 96,
+          "hasLogs": true,
+          "logs": "request:\n3 > PUT https://thinking-tester-contact-list.herokuapp.com/contacts/6b022eb39bd1bb0015325cbe\n3 > Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2YjAyMmViMzliZDFiYjAwMTUzMjVjYmMiLCJpYXQiOjE3OTUzMDUxMzl9.ToZ6u3AUYOdHc7j_T4DVBtkDOi8e7vSokEowIC51Buw\n3 > Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2YjAyMmViMzliZDFiYjAwMTUzMjVjYmMiLCJpYXQiOjE3OTUzMDUxMzl9.ToZ6u3AUYOdHc7j_T4DVBtkDOi8e7vSokEowIC51Buw\n3 > Content-Type: application/json\n3 > Host: thinking-tester-contact-list.herokuapp.com\n3 > Content-Length: 239\n3 > Connection: keep-alive\n3 > User-Agent: Apache-HttpClient/5.6 (Java/21.0.12.1)\n{\"firstName\":\"Amy\",\"lastName\":\"Miller\",\"birthdate\":\"1992-02-02\",\"email\":\"amiller@fake.com\",\"phone\":\"8005554242\",\"street1\":\"13 School St.\",\"street2\":\"Apt. 5\",\"city\":\"Washington\",\"stateProvince\":\"QC\",\"postalCode\":\"A1A1A1\",\"country\":\"Canada\"}\n\nresponse time in milliseconds: 95\n3 < 200 PUT https://thinking-tester-contact-list.herokuapp.com/contacts/6b022eb39bd1bb0015325cbe\n3 < Etag: W/\"13b-iy41HBsQaE34lddKxBh7QDDi4vU\"\n3 < Nel: {\"report_to\":\"heroku-nel\",\"response_headers\":[\"Via\"],\"max_age\":3600,\"success_fraction\":0.01,\"failure_fraction\":0.1}\n3 < Server: Heroku\n3 < Report-To: {\"group\":\"heroku-nel\",\"endpoints\":[{\"url\":\"https://nel.heroku.com/reports?s=oUT5gtsKI94lJHBk0emqrMwquWQdra98IeYtcXpQhF4%3D\\u0026sid=af571f24-03ee-46d1-9f90-ab9030c2c74c\\u0026ts=1795305139\"}],\"max_age\":3600}\n3 < Reporting-Endpoints: heroku-nel=\"https://nel.heroku.com/reports?s=oUT5gtsKI94lJHBk0emqrMwquWQdra98IeYtcXpQhF4%3D&sid=af571f24-03ee-46d1-9f90-ab9030c2c74c&ts=1795305139\"\n3 < Content-Length: 315\n3 < Date: Sat, 21 Nov 2026 23:52:19 GMT\n3 < Content-Type: application/json; charset=utf-8\n3 < Via: 1.1 heroku-router\n3 < X-Powered-By: Express\n{\"_id\":\"6b022eb39bd1bb0015325cbe\",\"firstName\":\"Amy\",\"lastName\":\"Miller\",\"birthdate\":\"1992-02-02\",\"email\":\"amiller@fake.com\",\"phone\":\"8005554242\",\"street1\":\"13 School St.\",\"street2\":\"Apt. 5\",\"city\":\"Washington\",\"stateProvince\":\"QC\",\"postalCode\":\"A1A1A1\",\"country\":\"Canada\",\"owner\":\"6b022eb39bd1bb0015325cbc\",\"__v\":0}\n\nPUT https://thinking-tester-contact-list.herokuapp.com/contacts/6b022eb39bd1bb0015325cbe\n200 (95 ms)\n",
+          "hasEmbeds": false,
+          "hasCallResults": false
+        },
+        {
+          "prefix": "Then",
+          "keyword": "status",
+          "text": "200",
+          "line": 62,
+          "status": "passed",
+          "durationMillis": 0,
+          "hasLogs": false,
+          "hasEmbeds": false,
+          "hasCallResults": false
+        },
+        {
+          "prefix": "And",
+          "keyword": "match",
+          "text": "response.firstName != 'John'",
+          "line": 63,
+          "status": "passed",
+          "durationMillis": 0,
+          "hasLogs": false,
+          "hasEmbeds": false,
+          "hasCallResults": false
+        },
+        {
+          "prefix": "And",
+          "keyword": "match",
+          "text": "response.lastName != 'Doe'",
+          "line": 64,
+          "status": "passed",
+          "durationMillis": 0,
+          "hasLogs": false,
+          "hasEmbeds": false,
+          "hasCallResults": false
+        },
+        {
+          "prefix": "And",
+          "keyword": "match",
+          "text": "response.birthdate != '1990-01-01'",
+          "line": 65,
+          "status": "passed",
+          "durationMillis": 0,
+          "hasLogs": false,
+          "hasEmbeds": false,
+          "hasCallResults": false
+        },
+        {
+          "prefix": "And",
+          "keyword": "match",
+          "text": "response.email != 'jdoe@fake.com'",
+          "line": 66,
+          "status": "passed",
+          "durationMillis": 0,
+          "hasLogs": false,
+          "hasEmbeds": false,
+          "hasCallResults": false
+        },
+        {
+          "prefix": "And",
+          "keyword": "match",
+          "text": "response.phone != '8005555555'",
+          "line": 67,
+          "status": "passed",
+          "durationMillis": 0,
+          "hasLogs": false,
+          "hasEmbeds": false,
+          "hasCallResults": false
+        },
+        {
+          "prefix": "And",
+          "keyword": "match",
+          "text": "response.street1 != '1 Main St.'",
+          "line": 68,
+          "status": "passed",
+          "durationMillis": 0,
+          "hasLogs": false,
+          "hasEmbeds": false,
+          "hasCallResults": false
+        },
+        {
+          "prefix": "And",
+          "keyword": "match",
+          "text": "response.street2 != 'Apartment A'",
+          "line": 69,
+          "status": "passed",
+          "durationMillis": 0,
+          "hasLogs": false,
+          "hasEmbeds": false,
+          "hasCallResults": false
+        },
+        {
+          "prefix": "And",
+          "keyword": "match",
+          "text": "response.city != 'Anytown'",
+          "line": 70,
+          "status": "passed",
+          "durationMillis": 0,
+          "hasLogs": false,
+          "hasEmbeds": false,
+          "hasCallResults": false
+        },
+        {
+          "prefix": "And",
+          "keyword": "match",
+          "text": "response.stateProvince != 'KS'",
+          "line": 71,
+          "status": "passed",
+          "durationMillis": 0,
+          "hasLogs": false,
+          "hasEmbeds": false,
+          "hasCallResults": false
+        },
+        {
+          "prefix": "And",
+          "keyword": "match",
+          "text": "response.postalCode != '12345'",
+          "line": 72,
+          "status": "passed",
+          "durationMillis": 0,
+          "hasLogs": false,
+          "hasEmbeds": false,
+          "hasCallResults": false
+        },
+        {
+          "prefix": "And",
+          "keyword": "match",
+          "text": "response.country != 'USA'",
+          "line": 73,
+          "status": "passed",
+          "durationMillis": 0,
+          "hasLogs": false,
+          "hasEmbeds": false,
+          "hasCallResults": false
+        },
+        {
+          "prefix": "Given",
+          "keyword": "path",
+          "text": "'users', 'me'",
+          "line": 75,
+          "status": "passed",
+          "durationMillis": 0,
+          "hasLogs": false,
+          "hasEmbeds": false,
+          "hasCallResults": false
+        },
+        {
+          "prefix": "And",
+          "keyword": "header",
+          "text": "Authorization = 'Bearer ' + tokenAuth",
+          "line": 76,
+          "status": "passed",
+          "durationMillis": 0,
+          "hasLogs": false,
+          "hasEmbeds": false,
+          "hasCallResults": false
+        },
+        {
+          "prefix": "When",
+          "keyword": "method",
+          "text": "delete",
+          "line": 77,
+          "status": "passed",
+          "durationMillis": 97,
+          "hasLogs": true,
+          "logs": "request:\n4 > DELETE https://thinking-tester-contact-list.herokuapp.com/users/me\n4 > Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2YjAyMmViMzliZDFiYjAwMTUzMjVjYmMiLCJpYXQiOjE3OTUzMDUxMzl9.ToZ6u3AUYOdHc7j_T4DVBtkDOi8e7vSokEowIC51Buw\n4 > Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2YjAyMmViMzliZDFiYjAwMTUzMjVjYmMiLCJpYXQiOjE3OTUzMDUxMzl9.ToZ6u3AUYOdHc7j_T4DVBtkDOi8e7vSokEowIC51Buw\n4 > Host: thinking-tester-contact-list.herokuapp.com\n4 > Connection: keep-alive\n4 > User-Agent: Apache-HttpClient/5.6 (Java/21.0.12.1)\n\nresponse time in milliseconds: 97\n4 < 200 DELETE https://thinking-tester-contact-list.herokuapp.com/users/me\n4 < Nel: {\"report_to\":\"heroku-nel\",\"response_headers\":[\"Via\"],\"max_age\":3600,\"success_fraction\":0.01,\"failure_fraction\":0.1}\n4 < Server: Heroku\n4 < Report-To: {\"group\":\"heroku-nel\",\"endpoints\":[{\"url\":\"https://nel.heroku.com/reports?s=hjWKxRW0D2S5VAQpTQZcIhgRqZjWAbUnbSAyE%2FpyYmE%3D\\u0026sid=af571f24-03ee-46d1-9f90-ab9030c2c74c\\u0026ts=1795305140\"}],\"max_age\":3600}\n4 < Reporting-Endpoints: heroku-nel=\"https://nel.heroku.com/reports?s=hjWKxRW0D2S5VAQpTQZcIhgRqZjWAbUnbSAyE%2FpyYmE%3D&sid=af571f24-03ee-46d1-9f90-ab9030c2c74c&ts=1795305140\"\n4 < Content-Length: 0\n4 < Date: Sat, 21 Nov 2026 23:52:20 GMT\n4 < Via: 1.1 heroku-router\n4 < X-Powered-By: Express\n\nDELETE https://thinking-tester-contact-list.herokuapp.com/users/me\n200 (97 ms)\n",
+          "hasEmbeds": false,
+          "hasCallResults": false
+        },
+        {
+          "prefix": "Then",
+          "keyword": "status",
+          "text": "200",
+          "line": 78,
+          "status": "passed",
+          "durationMillis": 0,
+          "hasLogs": false,
+          "hasEmbeds": false,
+          "hasCallResults": false
+        }
+      ]
+    }
+  ]
+}</script>
+</body>
+</html>

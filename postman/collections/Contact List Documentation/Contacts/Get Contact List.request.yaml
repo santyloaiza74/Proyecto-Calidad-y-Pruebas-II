@@ -1,7 +1,0 @@
-$kind: http-request
-url: https://thinking-tester-contact-list.herokuapp.com/contacts
-method: GET
-headers:
-  Authorization: Bearer {{tokenAuth}}
-examples: ./.resources/Get Contact List.resources/examples
-order: 3000

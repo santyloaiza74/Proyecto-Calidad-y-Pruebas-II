@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="demo.DemoTest" time="4.361" tests="8" errors="0" skipped="0" failures="0">
+  <properties>
+    <property name="java.specification.version" value="21"/>
+    <property name="sun.cpu.isalist" value="amd64"/>
+    <property name="sun.jnu.encoding" value="Cp1252"/>
+    <property name="java.class.path" value="C:\Users\santy\OneDrive\Documentos\VSProjects\Ucaldas\Calidad y pruebas\Proyecto Calidad y Prubas II\karate-charla-demo\target\test-classes;C:\Users\santy\OneDrive\Documentos\VSProjects\Ucaldas\Calidad y pruebas\Proyecto Calidad y Prubas II\karate-charla-demo\target\classes;C:\Users\santy\.m2\repository\io\karatelabs\karate-junit6\2.0.4\karate-junit6-2.0.4.jar;C:\Users\santy\.m2\repository\io\karatelabs\karate-core\2.0.4\karate-core-2.0.4.jar;C:\Users\santy\.m2\repository\io\karatelabs\karate-js\2.0.4\karate-js-2.0.4.jar;C:\Users\santy\.m2\repository\net\minidev\json-smart\2.6.0\json-smart-2.6.0.jar;C:\Users\santy\.m2\repository\net\minidev\accessors-smart\2.6.0\accessors-smart-2.6.0.jar;C:\Users\santy\.m2\repository\org\ow2\asm\asm\9.7.1\asm-9.7.1.jar;C:\Users\santy\.m2\repository\com\jayway\jsonpath\json-path\3.0.0\json-path-3.0.0.jar;C:\Users\santy\.m2\repository\org\apache\httpcomponents\client5\httpclient5\5.6\httpclient5-5.6.jar;C:\Users\santy\.m2\repository\org\apache\httpcomponents\core5\httpcore5\5.4\httpcore5-5.4.jar;C:\Users\santy\.m2\repository\org\apache\httpcomponents\core5\httpcore5-h2\5.4\httpcore5-h2-5.4.jar;C:\Users\santy\.m2\repository\io\netty\netty-handler\4.2.12.Final\netty-handler-4.2.12.Final.jar;C:\Users\santy\.m2\repository\io\netty\netty-common\4.2.12.Final\netty-common-4.2.12.Final.jar;C:\Users\santy\.m2\repository\io\netty\netty-resolver\4.2.12.Final\netty-resolver-4.2.12.Final.jar;C:\Users\santy\.m2\repository\io\netty\netty-buffer\4.2.12.Final\netty-buffer-4.2.12.Final.jar;C:\Users\santy\.m2\repository\io\netty\netty-transport\4.2.12.Final\netty-transport-4.2.12.Final.jar;C:\Users\santy\.m2\repository\io\netty\netty-transport-native-unix-common\4.2.12.Final\netty-transport-native-unix-common-4.2.12.Final.jar;C:\Users\santy\.m2\repository\io\netty\netty-codec-base\4.2.12.Final\netty-codec-base-4.2.12.Final.jar;C:\Users\santy\.m2\repository\io\netty\netty-codec-http\4.2.12.Final\netty-codec-http-4.2.12.Final.jar;C:\Users\santy\.m2\repository\io\netty\netty-codec-compression\4.2.12.Final\netty-codec-compression-4.2.12.Final.jar;C:\Users\santy\.m2\repository\org\yaml\snakeyaml\2.6\snakeyaml-2.6.jar;C:\Users\santy\.m2\repository\de\siegmar\fastcsv\4.2.0\fastcsv-4.2.0.jar;C:\Users\santy\.m2\repository\org\thymeleaf\thymeleaf\3.1.4.RELEASE\thymeleaf-3.1.4.RELEASE.jar;C:\Users\santy\.m2\repository\ognl\ognl\3.3.4\ognl-3.3.4.jar;C:\Users\santy\.m2\repository\org\javassist\javassist\3.29.0-GA\javassist-3.29.0-GA.jar;C:\Users\santy\.m2\repository\org\attoparser\attoparser\2.0.7.RELEASE\attoparser-2.0.7.RELEASE.jar;C:\Users\santy\.m2\repository\org\unbescape\unbescape\1.1.6.RELEASE\unbescape-1.1.6.RELEASE.jar;C:\Users\santy\.m2\repository\info\picocli\picocli\4.7.7\picocli-4.7.7.jar;C:\Users\santy\.m2\repository\org\brotli\dec\0.1.2\dec-0.1.2.jar;C:\Users\santy\.m2\repository\org\slf4j\slf4j-api\2.0.17\slf4j-api-2.0.17.jar;C:\Users\santy\.m2\repository\org\junit\jupiter\junit-jupiter\6.0.0\junit-jupiter-6.0.0.jar;C:\Users\santy\.m2\repository\org\junit\jupiter\junit-jupiter-api\6.0.0\junit-jupiter-api-6.0.0.jar;C:\Users\santy\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;C:\Users\santy\.m2\repository\org\junit\platform\junit-platform-commons\6.0.0\junit-platform-commons-6.0.0.jar;C:\Users\santy\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\santy\.m2\repository\org\jspecify\jspecify\1.0.0\jspecify-1.0.0.jar;C:\Users\santy\.m2\repository\org\junit\jupiter\junit-jupiter-params\6.0.0\junit-jupiter-params-6.0.0.jar;C:\Users\santy\.m2\repository\org\junit\jupiter\junit-jupiter-engine\6.0.0\junit-jupiter-engine-6.0.0.jar;C:\Users\santy\.m2\repository\org\junit\platform\junit-platform-engine\6.0.0\junit-platform-engine-6.0.0.jar;"/>
+    <property name="java.vm.vendor" value="Amazon.com Inc."/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="user.variant" value=""/>
+    <property name="java.vendor.url" value="https://aws.amazon.com/corretto/"/>
+    <property name="user.timezone" value="America/Bogota"/>
+    <property name="os.name" value="Windows 11"/>
+    <property name="java.vm.specification.version" value="21"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="user.country" value="CO"/>
+    <property name="sun.boot.library.path" value="C:\Program Files\Amazon Corretto\jdk21.0.12_12\bin"/>
+    <property name="sun.java.command" value="C:\Users\santy\AppData\Local\Temp\surefire240698723363365097\surefirebooter-20261121185215064_3.jar C:\Users\santy\AppData\Local\Temp\surefire240698723363365097 2026-11-21T18-52-14_927-jvmRun1 surefire-20261121185215064_1tmp surefire_0-20261121185215064_2tmp"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="surefire.test.class.path" value="C:\Users\santy\OneDrive\Documentos\VSProjects\Ucaldas\Calidad y pruebas\Proyecto Calidad y Prubas II\karate-charla-demo\target\test-classes;C:\Users\santy\OneDrive\Documentos\VSProjects\Ucaldas\Calidad y pruebas\Proyecto Calidad y Prubas II\karate-charla-demo\target\classes;C:\Users\santy\.m2\repository\io\karatelabs\karate-junit6\2.0.4\karate-junit6-2.0.4.jar;C:\Users\santy\.m2\repository\io\karatelabs\karate-core\2.0.4\karate-core-2.0.4.jar;C:\Users\santy\.m2\repository\io\karatelabs\karate-js\2.0.4\karate-js-2.0.4.jar;C:\Users\santy\.m2\repository\net\minidev\json-smart\2.6.0\json-smart-2.6.0.jar;C:\Users\santy\.m2\repository\net\minidev\accessors-smart\2.6.0\accessors-smart-2.6.0.jar;C:\Users\santy\.m2\repository\org\ow2\asm\asm\9.7.1\asm-9.7.1.jar;C:\Users\santy\.m2\repository\com\jayway\jsonpath\json-path\3.0.0\json-path-3.0.0.jar;C:\Users\santy\.m2\repository\org\apache\httpcomponents\client5\httpclient5\5.6\httpclient5-5.6.jar;C:\Users\santy\.m2\repository\org\apache\httpcomponents\core5\httpcore5\5.4\httpcore5-5.4.jar;C:\Users\santy\.m2\repository\org\apache\httpcomponents\core5\httpcore5-h2\5.4\httpcore5-h2-5.4.jar;C:\Users\santy\.m2\repository\io\netty\netty-handler\4.2.12.Final\netty-handler-4.2.12.Final.jar;C:\Users\santy\.m2\repository\io\netty\netty-common\4.2.12.Final\netty-common-4.2.12.Final.jar;C:\Users\santy\.m2\repository\io\netty\netty-resolver\4.2.12.Final\netty-resolver-4.2.12.Final.jar;C:\Users\santy\.m2\repository\io\netty\netty-buffer\4.2.12.Final\netty-buffer-4.2.12.Final.jar;C:\Users\santy\.m2\repository\io\netty\netty-transport\4.2.12.Final\netty-transport-4.2.12.Final.jar;C:\Users\santy\.m2\repository\io\netty\netty-transport-native-unix-common\4.2.12.Final\netty-transport-native-unix-common-4.2.12.Final.jar;C:\Users\santy\.m2\repository\io\netty\netty-codec-base\4.2.12.Final\netty-codec-base-4.2.12.Final.jar;C:\Users\santy\.m2\repository\io\netty\netty-codec-http\4.2.12.Final\netty-codec-http-4.2.12.Final.jar;C:\Users\santy\.m2\repository\io\netty\netty-codec-compression\4.2.12.Final\netty-codec-compression-4.2.12.Final.jar;C:\Users\santy\.m2\repository\org\yaml\snakeyaml\2.6\snakeyaml-2.6.jar;C:\Users\santy\.m2\repository\de\siegmar\fastcsv\4.2.0\fastcsv-4.2.0.jar;C:\Users\santy\.m2\repository\org\thymeleaf\thymeleaf\3.1.4.RELEASE\thymeleaf-3.1.4.RELEASE.jar;C:\Users\santy\.m2\repository\ognl\ognl\3.3.4\ognl-3.3.4.jar;C:\Users\santy\.m2\repository\org\javassist\javassist\3.29.0-GA\javassist-3.29.0-GA.jar;C:\Users\santy\.m2\repository\org\attoparser\attoparser\2.0.7.RELEASE\attoparser-2.0.7.RELEASE.jar;C:\Users\santy\.m2\repository\org\unbescape\unbescape\1.1.6.RELEASE\unbescape-1.1.6.RELEASE.jar;C:\Users\santy\.m2\repository\info\picocli\picocli\4.7.7\picocli-4.7.7.jar;C:\Users\santy\.m2\repository\org\brotli\dec\0.1.2\dec-0.1.2.jar;C:\Users\santy\.m2\repository\org\slf4j\slf4j-api\2.0.17\slf4j-api-2.0.17.jar;C:\Users\santy\.m2\repository\org\junit\jupiter\junit-jupiter\6.0.0\junit-jupiter-6.0.0.jar;C:\Users\santy\.m2\repository\org\junit\jupiter\junit-jupiter-api\6.0.0\junit-jupiter-api-6.0.0.jar;C:\Users\santy\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;C:\Users\santy\.m2\repository\org\junit\platform\junit-platform-commons\6.0.0\junit-platform-commons-6.0.0.jar;C:\Users\santy\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\santy\.m2\repository\org\jspecify\jspecify\1.0.0\jspecify-1.0.0.jar;C:\Users\santy\.m2\repository\org\junit\jupiter\junit-jupiter-params\6.0.0\junit-jupiter-params-6.0.0.jar;C:\Users\santy\.m2\repository\org\junit\jupiter\junit-jupiter-engine\6.0.0\junit-jupiter-engine-6.0.0.jar;C:\Users\santy\.m2\repository\org\junit\platform\junit-platform-engine\6.0.0\junit-platform-engine-6.0.0.jar;"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="C:\Users\santy"/>
+    <property name="user.language" value="es"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.version.date" value="2026-08-18"/>
+    <property name="java.home" value="C:\Program Files\Amazon Corretto\jdk21.0.12_12"/>
+    <property name="file.separator" value="\"/>
+    <property name="basedir" value="C:\Users\santy\OneDrive\Documentos\VSProjects\Ucaldas\Calidad y pruebas\Proyecto Calidad y Prubas II\karate-charla-demo"/>
+    <property name="java.vm.compressedOopsMode" value="Zero based"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="surefire.real.class.path" value="C:\Users\santy\AppData\Local\Temp\surefire240698723363365097\surefirebooter-20261121185215064_3.jar"/>
+    <property name="user.script" value=""/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="java.runtime.version" value="21.0.12.1+12-LTS"/>
+    <property name="user.name" value="santy"/>
+    <property name="stdout.encoding" value="Cp1252"/>
+    <property name="path.separator" value=";"/>
+    <property name="os.version" value="10.0"/>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="java.vendor.version" value="Corretto-21.0.12.12.1"/>
+    <property name="localRepository" value="C:\Users\santy\.m2\repository"/>
+    <property name="java.vendor.url.bug" value="https://github.com/corretto/corretto-21/issues/"/>
+    <property name="java.io.tmpdir" value="C:\Users\santy\AppData\Local\Temp\"/>
+    <property name="java.version" value="21.0.12.1"/>
+    <property name="user.dir" value="C:\Users\santy\OneDrive\Documentos\VSProjects\Ucaldas\Calidad y pruebas\Proyecto Calidad y Prubas II\karate-charla-demo"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="sun.os.patch.level" value=""/>
+    <property name="native.encoding" value="Cp1252"/>
+    <property name="java.library.path" value="C:\Program Files\Amazon Corretto\jdk21.0.12_12\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\Program Files\Amazon Corretto\jdk21.0.12_12\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Git\cmd;C:\Program Files\Microsoft VS Code\bin;C:\Program Files\dotnet\;C:\Program Files\NVIDIA Corporation\NVIDIA App\NvDLISR;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\nodejs\;C:\Program Files\Microsoft VS Code\bin\copilot-shim;C:\Program Files\WSL\;C:\Users\santy\AppData\Local\Programs\Karate;C:\Users\santy\AppData\Local\Programs\Python\Python315\Scripts\;C:\Users\santy\AppData\Local\Programs\Python\Python315\;C:\Users\santy\.local\bin;C:\Users\santy\AppData\Local\sonarqube-cli\bin;C:\Users\santy\AppData\Local\pnpm\bin;C:\Users\santy\AppData\Local\Microsoft\WindowsApps;C:\Users\santy\AppData\Roaming\npm;C:\Program Files\MySQL\MySQL Server 9.7\bin;C:\Users\santy\AppData\Local\Programs\DockerDesktop\resources\bin;C:\Program Files\apache-maven-3.10.1\bin;C:\Users\santy\.console-ninja\.bin;c:\Users\santy\.vscode\extensions\vscjava.vscode-java-debug-0.60.0\bundled\scripts\noConfigScripts;c:\Users\santy\AppData\Roaming\Code\User\globalStorage\github.copilot-chat\debugCommand;C:\Program Files\Microsoft VS Code\bin\copilot-shim;."/>
+    <property name="java.vm.info" value="mixed mode, sharing"/>
+    <property name="stderr.encoding" value="Cp1252"/>
+    <property name="java.vendor" value="Amazon.com Inc."/>
+    <property name="java.vm.version" value="21.0.12.1+12-LTS"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="java.class.version" value="65.0"/>
+  </properties>
+  <testcase name="[1:7] CP-001 Autenticación exitosa (Login) y captura de token" classname="demo.DemoTest" time="0.008">
+    <system-err><![CDATA[SLF4J(W): No SLF4J providers were found.
+SLF4J(W): Defaulting to no-operation (NOP) logger implementation
+SLF4J(W): See https://www.slf4j.org/codes.html#noProviders for further details.
+]]></system-err>
+  </testcase>
+  <testcase name="[2:35] CP-002 Modificación de perfil sin cabecera de autorización" classname="demo.DemoTest" time="0.001"/>
+  <testcase name="[3:51] CP-004 Registro de usuario público" classname="demo.DemoTest" time="0.0"/>
+  <testcase name="[4:71] CP-003 Eliminación de cuenta con esquema malformado" classname="demo.DemoTest" time="0.001"/>
+  <testcase name="[5:98] CP-005 Consulta de perfil de usuario autenticado" classname="demo.DemoTest" time="0.001"/>
+  <testcase name="[6:121] CP-007 Actualización parcial del perfil de usuario (PATCH)" classname="demo.DemoTest" time="0.001"/>
+  <testcase name="[7:149] CP-008 Eliminación definitiva de cuenta de usuario autenticado" classname="demo.DemoTest" time="0.001"/>
+  <testcase name="[1:6] CP-006 Reemplazo total de la entidad contacto (PUT)" classname="demo.DemoTest" time="0.001"/>
+</testsuite>
