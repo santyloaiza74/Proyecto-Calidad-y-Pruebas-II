@@ -1,4 +1,4 @@
-Feature: Pruebas de Autenticación y Usuarios (CP-001 a CP-005, CP-007, CP-008)
+Feature: Pruebas de Autenticación y Usuarios (CP-001 a CP-005, CP-007, CP-008, CP-009, CP-010)
 
   Background:
     * url baseUrl
@@ -163,3 +163,33 @@ Feature: Pruebas de Autenticación y Usuarios (CP-001 a CP-005, CP-007, CP-008)
     And header Authorization = 'Bearer ' + tokenAuth
     When method delete
     Then status 200
+  @CP-009
+  Scenario: CP-009 Registro de usuario omitiendo atributo obligatorio password
+    Given path 'users'
+    And request
+      """
+      {
+        "firstName": "Usuario",
+        "lastName": "Test",
+        "email": "usertest@fake.com"
+      }
+      """
+    When method POST
+    Then status 400
+    And match response.message contains 'User validation failed: password: Path `password` is required.'
+  
+  @CP-010
+  Scenario: CP-010 Registro de usuario con contraseña inferior a la longitud mínima
+    Given path 'users'
+    And request
+      """
+      {
+        "firstName": "Usuario",
+        "lastName": "Test",
+        "email": "usertest@fake.com",
+        "password": "12"
+      }
+      """
+    When method POST
+    Then status 400
+    And match response.message contains 'User validation failed: password: Path `password` (`12`) is shorter than the minimum allowed length (7).'
