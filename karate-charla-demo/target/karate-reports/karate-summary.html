@@ -219,7 +219,7 @@
     <script src="res/karate-report.js"></script>
     <script id="karate-data" type="application/json">{
   "env": null,
-  "reportDate": "2026-11-23 13:10:04",
+  "reportDate": "2026-11-23 15:45:43",
   "karateVersion": "2.0.4",
   "summary": {
     "feature_count": 2,
@@ -229,17 +229,17 @@
     "scenario_passed": 10,
     "scenario_failed": 0,
     "scenario_skipped": 0,
-    "duration_millis": 4730,
+    "duration_millis": 6272,
     "status": "passed"
   },
   "features": [
     {
-      "name": "Pruebas de Autenticación y Usuarios (CP-001 a CP-005, CP-007, CP-008, CP-009, CP-010)",
+      "name": "Pruebas de Autenticación y Usuarios (CP-001 a CP-005, CP-007 a CP-010)",
       "relativePath": "target/test-classes/demo/auth/login.feature",
       "fileName": "target.test-classes.demo.auth.login",
       "passed": true,
       "failed": false,
-      "durationMillis": 4121,
+      "durationMillis": 5589,
       "scenarioCount": 9,
       "passedCount": 9,
       "failedCount": 0,
@@ -247,60 +247,60 @@
       "scenarios": [
         {
           "name": "CP-001 Autenticación exitosa (Login) y captura de token",
-          "refId": "[1:7]",
+          "refId": "[1:8]",
           "passed": true,
           "skipped": false,
-          "durationMillis": 959,
+          "durationMillis": 1270,
           "tags": [
             "@CP-001"
           ]
         },
         {
           "name": "CP-002 Modificación de perfil sin cabecera de autorización",
-          "refId": "[2:35]",
+          "refId": "[2:39]",
           "passed": true,
           "skipped": false,
-          "durationMillis": 303,
+          "durationMillis": 309,
           "tags": [
             "@CP-002"
           ]
         },
         {
-          "name": "CP-004 Registro de usuario público",
-          "refId": "[3:51]",
+          "name": "CP-003 Eliminación de cuenta con esquema Authorization malformado",
+          "refId": "[3:56]",
           "passed": true,
           "skipped": false,
-          "durationMillis": 402,
-          "tags": [
-            "@CP-004"
-          ]
-        },
-        {
-          "name": "CP-003 Eliminación de cuenta con esquema malformado",
-          "refId": "[4:71]",
-          "passed": true,
-          "skipped": false,
-          "durationMillis": 533,
+          "durationMillis": 713,
           "tags": [
             "@CP-003"
           ]
         },
         {
-          "name": "CP-005 Consulta de perfil de usuario autenticado",
-          "refId": "[5:98]",
+          "name": "CP-004 Registro de usuario público",
+          "refId": "[4:73]",
           "passed": true,
           "skipped": false,
-          "durationMillis": 445,
+          "durationMillis": 428,
+          "tags": [
+            "@CP-004"
+          ]
+        },
+        {
+          "name": "CP-005 Consulta de perfil de usuario autenticado",
+          "refId": "[5:101]",
+          "passed": true,
+          "skipped": false,
+          "durationMillis": 738,
           "tags": [
             "@CP-005"
           ]
         },
         {
           "name": "CP-007 Actualización parcial del perfil de usuario (PATCH)",
-          "refId": "[6:121]",
+          "refId": "[6:123]",
           "passed": true,
           "skipped": false,
-          "durationMillis": 425,
+          "durationMillis": 745,
           "tags": [
             "@CP-007"
           ]
@@ -310,28 +310,30 @@
           "refId": "[7:149]",
           "passed": true,
           "skipped": false,
-          "durationMillis": 424,
+          "durationMillis": 727,
           "tags": [
             "@CP-008"
           ]
         },
         {
-          "name": "CP-009 Registro de usuario omitiendo atributo obligatorio password",
-          "refId": "[8:167]",
+          "name": "CP-009 Validación de contraseña en registro (password obligatorio omitido)",
+          "refId": "[8.1:174]",
           "passed": true,
           "skipped": false,
-          "durationMillis": 267,
+          "durationMillis": 287,
           "tags": [
-            "@CP-009"
+            "@CP-009",
+            "@CP-010"
           ]
         },
         {
-          "name": "CP-010 Registro de usuario con contraseña inferior a la longitud mínima",
-          "refId": "[9:182]",
+          "name": "CP-010 Validación de contraseña en registro (password menor a longitud min)",
+          "refId": "[8.2:174]",
           "passed": true,
           "skipped": false,
-          "durationMillis": 293,
+          "durationMillis": 299,
           "tags": [
+            "@CP-009",
             "@CP-010"
           ]
         }
@@ -343,7 +345,7 @@
       "fileName": "target.test-classes.demo.contacts.get-contacts",
       "passed": true,
       "failed": false,
-      "durationMillis": 590,
+      "durationMillis": 660,
       "scenarioCount": 1,
       "passedCount": 1,
       "failedCount": 0,
@@ -354,7 +356,7 @@
           "refId": "[1:6]",
           "passed": true,
           "skipped": false,
-          "durationMillis": 588,
+          "durationMillis": 659,
           "tags": [
             "@CP-006"
           ]

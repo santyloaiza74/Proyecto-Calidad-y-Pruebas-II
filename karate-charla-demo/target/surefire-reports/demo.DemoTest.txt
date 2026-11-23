@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: demo.DemoTest
 -------------------------------------------------------------------------------
-Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.864 s -- in demo.DemoTest
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.422 s -- in demo.DemoTest
